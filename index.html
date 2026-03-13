@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>杜炜Neo - 亚马逊运营主管 - 在线简历</title>
+    <title>杜炜Neo - Amazon Operations Manager - 在线简历</title>
     <style>
         * {
             margin: 0;
@@ -23,6 +23,47 @@
             margin: 0 auto;
             padding: 40px 20px;
         }
+
+        /* 语言切换按钮 */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            z-index: 3000;
+            display: flex;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .lang-btn {
+            padding: 8px 18px;
+            border: none;
+            background: transparent;
+            color: #999;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .lang-btn.active {
+            background: #ff3333;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: #ff3333;
+        }
+
+        /* 语言显示控制 */
+        [data-lang="en"] { display: none; }
+        body.en [data-lang="zh"] { display: none; }
+        body.en [data-lang="en"] { display: revert; }
 
         /* 头部信息 */
         .header {
@@ -62,7 +103,6 @@
             text-decoration: none;
         }
 
-        /* 章节标题 */
         .section {
             margin-bottom: 50px;
         }
@@ -86,7 +126,6 @@
             background: #ff3333;
         }
 
-        /* 个人优势 */
         .advantages {
             background: #1a1a1a;
             border: 1px solid #333;
@@ -134,7 +173,6 @@
             margin-top: 5px;
         }
 
-        /* 工作经历 */
         .job {
             background: #1a1a1a;
             border: 1px solid #333;
@@ -143,9 +181,7 @@
             margin-bottom: 25px;
         }
 
-        .job-header {
-            margin-bottom: 20px;
-        }
+        .job-header { margin-bottom: 20px; }
 
         .job-title {
             display: flex;
@@ -156,21 +192,9 @@
             margin-bottom: 10px;
         }
 
-        .job-title h3 {
-            color: #fff;
-            font-size: 1.3rem;
-        }
-
-        .job-date {
-            color: #999;
-            font-size: 0.95rem;
-        }
-
-        .company {
-            color: #ff3333;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
+        .job-title h3 { color: #fff; font-size: 1.3rem; }
+        .job-date { color: #999; font-size: 0.95rem; }
+        .company { color: #ff3333; font-size: 1.1rem; margin-bottom: 5px; }
 
         .job-subtitle {
             color: #ff3333;
@@ -180,19 +204,16 @@
             font-weight: 600;
         }
 
-        .job ul {
-            list-style: none;
-            margin-left: 0;
-        }
+        .job ul, .project ul { list-style: none; margin-left: 0; }
 
-        .job ul li {
+        .job ul li, .project ul li {
             color: #ccc;
             margin-bottom: 10px;
             padding-left: 20px;
             position: relative;
         }
 
-        .job ul li::before {
+        .job ul li::before, .project ul li::before {
             content: '▪';
             color: #ff3333;
             position: absolute;
@@ -207,12 +228,8 @@
             margin-top: 20px;
         }
 
-        .career-path p {
-            color: #ccc;
-            margin-bottom: 10px;
-        }
+        .career-path p { color: #ccc; margin-bottom: 10px; }
 
-        /* 项目经历 */
         .project {
             background: #1a1a1a;
             border: 1px solid #333;
@@ -221,28 +238,12 @@
             margin-bottom: 25px;
         }
 
-        .project h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
+        .project h3 { color: #fff; font-size: 1.3rem; margin-bottom: 15px; }
 
-        .project-phase {
-            margin: 20px 0;
-        }
+        .project-phase { margin: 20px 0; }
+        .project-phase h4 { color: #ff3333; font-size: 1rem; margin-bottom: 10px; }
+        .project-phase p { color: #ccc; margin-left: 15px; }
 
-        .project-phase h4 {
-            color: #ff3333;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .project-phase p {
-            color: #ccc;
-            margin-left: 15px;
-        }
-
-        /* 技能标签 */
         .skills {
             display: flex;
             flex-wrap: wrap;
@@ -259,7 +260,6 @@
             font-size: 0.9rem;
         }
 
-        /* 教育和证书 */
         .education {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -273,18 +273,9 @@
             padding: 20px;
         }
 
-        .edu-item h3 {
-            color: #ff3333;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
+        .edu-item h3 { color: #ff3333; font-size: 1.1rem; margin-bottom: 10px; }
+        .edu-item p { color: #ccc; font-size: 0.95rem; }
 
-        .edu-item p {
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        /* 操作按钮 */
         .action-buttons {
             position: fixed;
             bottom: 30px;
@@ -319,18 +310,13 @@
             border: 2px solid #ff3333;
         }
 
-        .action-btn.secondary:hover {
-            background: #ff3333;
-        }
+        .action-btn.secondary:hover { background: #ff3333; }
 
-        /* 弹窗样式 */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.9);
             z-index: 2000;
             justify-content: center;
@@ -338,9 +324,7 @@
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: #1a1a1a;
@@ -354,121 +338,48 @@
             position: relative;
         }
 
-        .modal-header {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .modal-header h2 {
-            color: #ff3333;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .modal-header p {
-            color: #999;
-            font-size: 0.95rem;
-        }
+        .modal-header { margin-bottom: 30px; text-align: center; }
+        .modal-header h2 { color: #ff3333; font-size: 1.8rem; margin-bottom: 10px; }
+        .modal-header p { color: #999; font-size: 0.95rem; }
 
         .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: #999;
-            font-size: 2rem;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0;
-            width: 30px;
-            height: 30px;
+            position: absolute; top: 20px; right: 20px;
+            background: none; border: none; color: #999;
+            font-size: 2rem; cursor: pointer; line-height: 1;
+        }
+        .close-btn:hover { color: #ff3333; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; color: #ccc; margin-bottom: 8px; font-size: 0.95rem; }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 12px;
+            background: #0a0a0a; border: 1px solid #333;
+            border-radius: 8px; color: #fff; font-size: 1rem; font-family: inherit;
         }
 
-        .close-btn:hover {
-            color: #ff3333;
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none; border-color: #ff3333;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #ccc;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #ff3333;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
 
         .submit-btn {
-            width: 100%;
-            background: #ff3333;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+            width: 100%; background: #ff3333; color: white; border: none;
+            padding: 15px; border-radius: 8px; font-size: 1.1rem;
+            cursor: pointer; transition: all 0.3s ease; margin-top: 10px;
         }
+        .submit-btn:hover { background: #ff6666; }
 
-        .submit-btn:hover {
-            background: #ff6666;
-        }
-
-        .submit-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-        }
-
-        /* ========== 自定义日历样式 ========== */
-        .calendar-wrapper {
-            position: relative;
-        }
-
-        .calendar-input {
-            cursor: pointer !important;
-            caret-color: transparent;
-        }
+        /* 日历 */
+        .calendar-wrapper { position: relative; }
+        .calendar-input { cursor: pointer !important; caret-color: transparent; }
 
         .calendar-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 6px);
-            left: 0;
-            z-index: 100;
-            background: #111;
-            border: 1px solid #ff3333;
-            border-radius: 12px;
-            padding: 18px;
-            width: 320px;
-            box-shadow: 0 12px 40px rgba(255, 51, 51, 0.2), 0 0 0 1px rgba(255,51,51,0.1);
+            display: none; position: absolute; top: calc(100% + 6px); left: 0;
+            z-index: 100; background: #111; border: 1px solid #ff3333;
+            border-radius: 12px; padding: 18px; width: 320px;
+            box-shadow: 0 12px 40px rgba(255, 51, 51, 0.2);
             animation: calFadeIn 0.2s ease;
         }
 
@@ -477,316 +388,183 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .calendar-dropdown.open {
-            display: block;
-        }
+        .calendar-dropdown.open { display: block; }
 
-        .cal-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
 
         .cal-nav button {
-            background: none;
-            border: 1px solid #333;
-            color: #ff3333;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s;
+            background: none; border: 1px solid #333; color: #ff3333;
+            width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+            font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
         }
+        .cal-nav button:hover { background: #ff3333; color: #fff; border-color: #ff3333; }
 
-        .cal-nav button:hover {
-            background: #ff3333;
-            color: #fff;
-            border-color: #ff3333;
-        }
+        .cal-month-year { color: #fff; font-size: 1rem; font-weight: 600; }
 
-        .cal-month-year {
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
+        .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 6px; }
+        .cal-weekdays span { color: #666; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; padding: 4px 0; }
 
-        .cal-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            margin-bottom: 6px;
-        }
-
-        .cal-weekdays span {
-            color: #666;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            padding: 4px 0;
-        }
-
-        .cal-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 3px;
-        }
+        .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
 
         .cal-day {
-            width: 100%;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.88rem;
-            color: #ccc;
-            border: none;
-            background: none;
-            transition: all 0.15s;
-            position: relative;
+            width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+            border-radius: 8px; cursor: pointer; font-size: 0.88rem; color: #ccc;
+            border: none; background: none; transition: all 0.15s;
         }
+        .cal-day:hover:not(.disabled):not(.empty) { background: rgba(255, 51, 51, 0.15); color: #ff3333; }
+        .cal-day.today { border: 1px solid #ff3333; color: #ff3333; font-weight: 700; }
+        .cal-day.selected { background: #ff3333 !important; color: #fff !important; font-weight: 700; box-shadow: 0 2px 10px rgba(255, 51, 51, 0.4); }
+        .cal-day.disabled { color: #333; cursor: not-allowed; }
+        .cal-day.other-month { color: #444; }
 
-        .cal-day:hover:not(.disabled):not(.empty) {
-            background: rgba(255, 51, 51, 0.15);
-            color: #ff3333;
-        }
-
-        .cal-day.today {
-            border: 1px solid #ff3333;
-            color: #ff3333;
-            font-weight: 700;
-        }
-
-        .cal-day.selected {
-            background: #ff3333 !important;
-            color: #fff !important;
-            font-weight: 700;
-            box-shadow: 0 2px 10px rgba(255, 51, 51, 0.4);
-        }
-
-        .cal-day.disabled {
-            color: #333;
-            cursor: not-allowed;
-        }
-
-        .cal-day.empty {
-            cursor: default;
-        }
-
-        .cal-day.other-month {
-            color: #444;
-        }
-
-        /* 时间选择器 */
         .time-picker-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid #222;
+            display: flex; gap: 10px; align-items: center;
+            margin-top: 14px; padding-top: 14px; border-top: 1px solid #222;
         }
-
-        .time-picker-row label {
-            color: #999;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
+        .time-picker-row label { color: #999; font-size: 0.85rem; white-space: nowrap; }
 
         .time-select {
-            flex: 1;
-            padding: 8px 10px;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.95rem;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            text-align: center;
+            flex: 1; padding: 8px 10px; background: #0a0a0a; border: 1px solid #333;
+            border-radius: 8px; color: #fff; font-size: 0.95rem; cursor: pointer;
+            appearance: none; -webkit-appearance: none; text-align: center;
         }
+        .time-select:focus { outline: none; border-color: #ff3333; }
+        .time-colon { color: #ff3333; font-size: 1.2rem; font-weight: 700; }
 
-        .time-select:focus {
-            outline: none;
-            border-color: #ff3333;
-        }
-
-        .time-colon {
-            color: #ff3333;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        /* 确认按钮 */
         .cal-confirm {
-            width: 100%;
-            margin-top: 12px;
-            padding: 10px;
-            background: #ff3333;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.15s;
+            width: 100%; margin-top: 12px; padding: 10px; background: #ff3333;
+            color: #fff; border: none; border-radius: 8px; font-size: 0.95rem;
+            cursor: pointer; font-weight: 600; transition: all 0.15s;
         }
+        .cal-confirm:hover { background: #ff5555; }
 
-        .cal-confirm:hover {
-            background: #ff5555;
-        }
-
-        /* 发送方式提示 */
         .send-method-note {
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            background: #0a0a0a; border: 1px solid #333; border-radius: 8px;
+            padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px;
         }
+        .send-method-note .icon { color: #ff3333; font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .send-method-note p { color: #999; font-size: 0.85rem; line-height: 1.5; }
 
-        .send-method-note .icon {
-            color: #ff3333;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .send-method-note p {
-            color: #999;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* 响应式 */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .job-title {
-                flex-direction: column;
-            }
-
-            .highlight-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .modal-content {
-                padding: 30px 20px;
-            }
-
-            .calendar-dropdown {
-                width: 290px;
-            }
+            .header h1 { font-size: 2rem; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .job-title { flex-direction: column; }
+            .highlight-stats { grid-template-columns: 1fr; }
+            .action-buttons { bottom: 20px; right: 20px; }
+            .modal-content { padding: 30px 20px; }
+            .calendar-dropdown { width: 290px; }
+            .lang-switch { top: 15px; right: 15px; }
         }
 
         @media print {
-            body {
-                background: white;
-                color: black;
-            }
-
-            .action-buttons {
-                display: none;
-            }
-
-            .section {
-                page-break-inside: avoid;
-            }
+            body { background: white; color: black; }
+            .action-buttons, .lang-switch { display: none; }
+            .section { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
+    <!-- 语言切换 -->
+    <div class="lang-switch">
+        <button class="lang-btn active" id="btnZH" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" id="btnEN" onclick="switchLang('en')">EN</button>
+    </div>
+
     <div class="container">
-        <!-- 头部信息 -->
+        <!-- 头部 -->
         <div class="header">
             <h1>杜炜 Neo</h1>
-            <p class="title">亚马逊运营主管</p>
-            <div class="contact-info">
+            <p class="title" data-lang="zh">亚马逊运营主管</p>
+            <p class="title" data-lang="en">Amazon Operations Manager</p>
+            <div class="contact-info" data-lang="zh">
                 <span>📧 <a href="mailto:739347960@qq.com">739347960@qq.com</a></span>
                 <span>📱 13528461835</span>
                 <span>💼 期望岗位：运营经理/高级运营主管</span>
                 <span>💰 期望薪资：18-25K</span>
             </div>
+            <div class="contact-info" data-lang="en">
+                <span>📧 <a href="mailto:739347960@qq.com">739347960@qq.com</a></span>
+                <span>📱 +86 13528461835</span>
+                <span>💼 Target: Operations Manager / Senior Ops Lead</span>
+                <span>💰 Expected: 18-25K RMB</span>
+            </div>
         </div>
 
         <!-- 个人优势 -->
         <div class="section">
-            <h2 class="section-title">个人优势</h2>
+            <h2 class="section-title" data-lang="zh">个人优势</h2>
+            <h2 class="section-title" data-lang="en">Key Highlights</h2>
+
             <div class="advantages">
-                <h3>业绩成果</h3>
+                <h3 data-lang="zh">业绩成果</h3>
+                <h3 data-lang="en">Performance Metrics</h3>
                 <div class="highlight-stats">
                     <div class="stat-item">
-                        <div class="stat-value">1,040万</div>
-                        <div class="stat-label">累计销售额</div>
+                        <div class="stat-value" data-lang="zh">1,040万</div>
+                        <div class="stat-value" data-lang="en">¥10.4M</div>
+                        <div class="stat-label" data-lang="zh">累计销售额</div>
+                        <div class="stat-label" data-lang="en">Total Revenue</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">355万</div>
-                        <div class="stat-label">单月峰值</div>
+                        <div class="stat-value" data-lang="zh">355万</div>
+                        <div class="stat-value" data-lang="en">¥3.55M</div>
+                        <div class="stat-label" data-lang="zh">单月峰值</div>
+                        <div class="stat-label" data-lang="en">Peak Monthly Sales</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">209%</div>
-                        <div class="stat-label">单月增长率</div>
+                        <div class="stat-label" data-lang="zh">单月增长率</div>
+                        <div class="stat-label" data-lang="en">Monthly Growth</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">660%</div>
-                        <div class="stat-label">新品增长率</div>
+                        <div class="stat-label" data-lang="zh">新品增长率</div>
+                        <div class="stat-label" data-lang="en">New Product Growth</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">2款</div>
-                        <div class="stat-label">盈利产品</div>
+                        <div class="stat-value" data-lang="zh">2款</div>
+                        <div class="stat-value" data-lang="en">2</div>
+                        <div class="stat-label" data-lang="zh">盈利产品</div>
+                        <div class="stat-label" data-lang="en">Profitable Products</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">25%+</div>
-                        <div class="stat-label">广告效率提升</div>
+                        <div class="stat-label" data-lang="zh">广告效率提升</div>
+                        <div class="stat-label" data-lang="en">Ad Efficiency Gain</div>
                     </div>
                 </div>
             </div>
 
             <div class="advantages">
-                <h3>核心竞争力</h3>
-                <p>10年财务背景+运营实战经验，用P&L思维做运营，既追求增长又把控利润。新品从0到1成功验证选品能力，财务分析能力让我在成本管控和数据驱动决策上有独特优势。</p>
-                <p>擅长用AI工具辅助数据分析，提升决策效率。热爱阅读和运动（持有羽毛球教练证），保持持续学习和健康生活状态。</p>
+                <h3 data-lang="zh">核心竞争力</h3>
+                <h3 data-lang="en">Core Competencies</h3>
+                <p data-lang="zh">10年财务背景+运营实战经验，用P&L思维做运营，既追求增长又把控利润。新品从0到1成功验证选品能力，财务分析能力让我在成本管控和数据驱动决策上有独特优势。</p>
+                <p data-lang="en">10 years of finance background combined with hands-on operations experience. I approach operations with a P&L mindset — driving growth while protecting margins. Successfully launched new products from scratch, validating product selection capabilities. My financial analysis skills give me a unique edge in cost control and data-driven decision making.</p>
+                <p data-lang="zh">擅长用AI工具辅助数据分析，提升决策效率。热爱阅读和运动（持有羽毛球教练证），保持持续学习和健康生活状态。</p>
+                <p data-lang="en">Proficient in leveraging AI tools for data analysis and decision-making efficiency. Passionate about reading and sports (certified badminton coach), maintaining continuous learning and a healthy lifestyle.</p>
             </div>
         </div>
 
         <!-- 工作经历 -->
         <div class="section">
-            <h2 class="section-title">工作经历</h2>
-            
+            <h2 class="section-title" data-lang="zh">工作经历</h2>
+            <h2 class="section-title" data-lang="en">Work Experience</h2>
+
             <div class="job">
                 <div class="job-header">
                     <div class="job-title">
-                        <h3>运营主管</h3>
-                        <span class="job-date">2024.09 - 至今</span>
+                        <h3 data-lang="zh">运营主管</h3>
+                        <h3 data-lang="en">Operations Manager</h3>
+                        <span class="job-date" data-lang="zh">2024.09 - 至今</span>
+                        <span class="job-date" data-lang="en">Sep 2024 - Present</span>
                     </div>
-                    <p class="company">深圳市天行云供应链有限公司（行云集团，国内独角兽企业）</p>
+                    <p class="company" data-lang="zh">深圳市天行云供应链有限公司（行云集团，国内独角兽企业）</p>
+                    <p class="company" data-lang="en">Xingyun Group (China Unicorn Enterprise)</p>
                 </div>
 
-                <div class="job-subtitle">业绩成果</div>
-                <ul>
+                <div class="job-subtitle" data-lang="zh">业绩成果</div>
+                <div class="job-subtitle" data-lang="en">Key Achievements</div>
+                <ul data-lang="zh">
                     <li>管理7款产品，覆盖美国/加拿大/英国/德国4个站点，3万件商品</li>
                     <li>累计销售1,040万，客单价39-149美金，单月峰值355万（增长209%）</li>
                     <li>独立完成1款新品从0到1：市场调研→产品备货→Listing创建→广告推广，累计销售34万，单月增长660%</li>
@@ -796,9 +574,20 @@
                     <li>建立库存管理模型，库存周转天数从200天降至150天，仓储成本减少18%</li>
                     <li>成本优化：采购成本降低3-5%，物流成本降低8-12%</li>
                 </ul>
+                <ul data-lang="en">
+                    <li>Managed 7 products across 4 marketplaces (US/CA/UK/DE), 30,000+ SKUs</li>
+                    <li>Generated ¥10.4M total sales, ASP $39-149, peak monthly revenue ¥3.55M (+209%)</li>
+                    <li>Independently launched 1 new product from 0→1: market research → inventory → listing → PPC. Cumulative sales ¥340K, monthly growth 660%</li>
+                    <li>Identified 2 profitable products (gross margin 23%+, net margin 5-15%), built tiered product management system</li>
+                    <li>Built 1,000+ keyword library, restructured campaigns, ad efficiency up 25%+, some products ACoS below 10%</li>
+                    <li>Optimized Amazon PPC strategy, conversion rate up 23%, ACoS improved 15%</li>
+                    <li>Built inventory model, reduced turnover from 200 to 150 days, warehousing costs down 18%</li>
+                    <li>Cost optimization: procurement -3~5%, logistics -8~12%</li>
+                </ul>
 
-                <div class="job-subtitle">工作内容</div>
-                <ul>
+                <div class="job-subtitle" data-lang="zh">工作内容</div>
+                <div class="job-subtitle" data-lang="en">Responsibilities</div>
+                <ul data-lang="zh">
                     <li>产品运营：7款产品日常运营（Listing优化、库存管理、定价策略、促销活动）</li>
                     <li>新品开发：从选品、竞品分析、产品备货到上市推广全流程</li>
                     <li>广告投放：关键词挖掘、广告结构优化（自动+手动+商品投放）、ACOS/ROAS管理</li>
@@ -806,80 +595,122 @@
                     <li>多站点管理：4站点差异化运营，VAT/WEEE/EPR合规管理</li>
                     <li>团队管理：与2人运营团队协同工作，输出运营SOP、广告优化流程，帮助团队提升数据分析能力</li>
                 </ul>
+                <ul data-lang="en">
+                    <li>Product Operations: Daily management of 7 products (listing optimization, inventory, pricing, promotions)</li>
+                    <li>New Product Development: End-to-end from product selection, competitor analysis to launch campaigns</li>
+                    <li>PPC Advertising: Keyword mining, campaign optimization (auto + manual + product targeting), ACoS/ROAS management</li>
+                    <li>Data Analytics: P&L models, daily/weekly/monthly reports, Power BI dashboards, sales forecasting</li>
+                    <li>Multi-marketplace: Differentiated ops across 4 sites, VAT/WEEE/EPR compliance</li>
+                    <li>Team Leadership: Collaborated with 2-person team, developed SOPs, mentored on data analytics</li>
+                </ul>
 
                 <div class="career-path">
-                    <div class="job-subtitle">职业发展路径</div>
-                    <p><strong>2024.09-2025.06：</strong>负责3亿元跨境业务线经营分析，深度参与运营优化，主导广告策略优化、库存管理优化、Power BI数据系统搭建</p>
-                    <p><strong>2025.07-至今：</strong>转岗运营主管，全面负责产品运营、新品开发、广告投放、数据分析、团队协作等工作</p>
+                    <div class="job-subtitle" data-lang="zh">职业发展路径</div>
+                    <div class="job-subtitle" data-lang="en">Career Path</div>
+                    <p data-lang="zh"><strong>2024.09-2025.06：</strong>负责3亿元跨境业务线经营分析，深度参与运营优化，主导广告策略优化、库存管理优化、Power BI数据系统搭建</p>
+                    <p data-lang="en"><strong>Sep 2024 - Jun 2025:</strong> Led business analysis for ¥300M cross-border business line, drove PPC strategy, inventory optimization, and Power BI implementation</p>
+                    <p data-lang="zh"><strong>2025.07-至今：</strong>转岗运营主管，全面负责产品运营、新品开发、广告投放、数据分析、团队协作等工作</p>
+                    <p data-lang="en"><strong>Jul 2025 - Present:</strong> Promoted to Operations Manager, fully responsible for product ops, new launches, PPC, analytics, and team collaboration</p>
                 </div>
             </div>
 
             <div class="job">
                 <div class="job-header">
                     <div class="job-title">
-                        <h3>财务经理</h3>
-                        <span class="job-date">2022.07 - 2024.09</span>
+                        <h3 data-lang="zh">财务经理</h3>
+                        <h3 data-lang="en">Finance Manager</h3>
+                        <span class="job-date" data-lang="zh">2022.07 - 2024.09</span>
+                        <span class="job-date" data-lang="en">Jul 2022 - Sep 2024</span>
                     </div>
-                    <p class="company">深圳希德创新系统有限公司</p>
+                    <p class="company" data-lang="zh">深圳希德创新系统有限公司</p>
+                    <p class="company" data-lang="en">Shenzhen CID Innovation Systems Co., Ltd.</p>
                 </div>
-                <p style="color: #ccc; margin-top: 15px;">跨境电商行业起点，3年财务经历深度理解业务逻辑。搭建财务分析体系，建立新品定价模型、广告ROI分析模型，每月主持经营分析会，为转型运营奠定基础</p>
+                <p data-lang="zh" style="color:#ccc;margin-top:15px;">跨境电商行业起点，3年财务经历深度理解业务逻辑。搭建财务分析体系，建立新品定价模型、广告ROI分析模型，每月主持经营分析会，为转型运营奠定基础</p>
+                <p data-lang="en" style="color:#ccc;margin-top:15px;">Entry into cross-border e-commerce. 3 years of finance with deep business understanding. Built financial analysis frameworks, new product pricing models, and ad ROI models. Chaired monthly business reviews — laying the foundation for transition to operations.</p>
             </div>
 
             <div class="job">
                 <div class="job-header">
                     <div class="job-title">
-                        <h3>总账会计</h3>
-                        <span class="job-date">2018.08 - 2022.05</span>
+                        <h3 data-lang="zh">总账会计</h3>
+                        <h3 data-lang="en">General Ledger Accountant</h3>
+                        <span class="job-date" data-lang="zh">2018.08 - 2022.05</span>
+                        <span class="job-date" data-lang="en">Aug 2018 - May 2022</span>
                     </div>
-                    <p class="company">深圳市新星轻合金材料股份有限公司</p>
+                    <p class="company" data-lang="zh">深圳市新星轻合金材料股份有限公司</p>
+                    <p class="company" data-lang="en">Shenzhen Xinxing Light Alloy Materials Co., Ltd. (Publicly Listed)</p>
                 </div>
-                <p style="color: #ccc; margin-top: 15px;">上市公司4年财务经验，负责财务报表审核、预算管理、审计配合等工作，建立规范化财务管理思维</p>
+                <p data-lang="zh" style="color:#ccc;margin-top:15px;">上市公司4年财务经验，负责财务报表审核、预算管理、审计配合等工作，建立规范化财务管理思维</p>
+                <p data-lang="en" style="color:#ccc;margin-top:15px;">4 years at a publicly listed company. Financial statement review, budget management, audit coordination. Developed structured financial management thinking.</p>
             </div>
         </div>
 
         <!-- 项目经历 -->
         <div class="section">
-            <h2 class="section-title">项目经历</h2>
+            <h2 class="section-title" data-lang="zh">项目经历</h2>
+            <h2 class="section-title" data-lang="en">Project Experience</h2>
             <div class="project">
-                <h3>亚马逊多站点业务优化与新品拓展 | 项目负责人</h3>
-                <p style="color: #999; margin-bottom: 20px;">2025.07 - 至今</p>
+                <h3 data-lang="zh">亚马逊多站点业务优化与新品拓展 | 项目负责人</h3>
+                <h3 data-lang="en">Amazon Multi-Marketplace Optimization & New Product Expansion | Project Lead</h3>
+                <p style="color:#999;margin-bottom:20px;" data-lang="zh">2025.07 - 至今</p>
+                <p style="color:#999;margin-bottom:20px;" data-lang="en">Jul 2025 - Present</p>
 
-                <div class="job-subtitle">项目背景</div>
-                <p style="color: #ccc; margin-bottom: 20px;">接手6款产品优化运营 + 从0到1推出1款新品</p>
+                <div class="job-subtitle" data-lang="zh">项目背景</div>
+                <div class="job-subtitle" data-lang="en">Background</div>
+                <p style="color:#ccc;margin-bottom:20px;" data-lang="zh">接手6款产品优化运营 + 从0到1推出1款新品</p>
+                <p style="color:#ccc;margin-bottom:20px;" data-lang="en">Took over 6 existing products for optimization + launched 1 new product from scratch</p>
 
-                <div class="job-subtitle">项目成果</div>
-                <ul>
+                <div class="job-subtitle" data-lang="zh">项目成果</div>
+                <div class="job-subtitle" data-lang="en">Results</div>
+                <ul data-lang="zh">
                     <li>销售额1,040万，12月单月355万（增长209%）</li>
                     <li>新品从0到1，累计销售34万，单月增长660%</li>
                     <li>识别2款盈利产品，粗毛利率23%+</li>
                     <li>广告效率提升25%+，部分产品广告费用率低于10%</li>
                     <li>输出完整运营方法论：选品评估模型、广告优化SOP、P&L管理模型、产品分级体系</li>
                 </ul>
+                <ul data-lang="en">
+                    <li>Total sales ¥10.4M, December peak ¥3.55M (+209%)</li>
+                    <li>New product 0→1, cumulative ¥340K, monthly growth 660%</li>
+                    <li>Identified 2 profitable products, gross margin 23%+</li>
+                    <li>Ad efficiency up 25%+, some products ACoS below 10%</li>
+                    <li>Developed complete methodology: product evaluation model, PPC SOP, P&L model, product tiering</li>
+                </ul>
 
-                <div class="job-subtitle">四阶段推进</div>
+                <div class="job-subtitle" data-lang="zh">四阶段推进</div>
+                <div class="job-subtitle" data-lang="en">Four-Phase Approach</div>
                 <div class="project-phase">
-                    <h4>第1-2月：诊断+调研</h4>
-                    <p>6款产品全面诊断，新品市场调研、竞品分析、成本测算，建立P&L模型</p>
+                    <h4 data-lang="zh">第1-2月：诊断+调研</h4>
+                    <h4 data-lang="en">Phase 1-2: Diagnosis & Research</h4>
+                    <p data-lang="zh">6款产品全面诊断，新品市场调研、竞品分析、成本测算，建立P&L模型</p>
+                    <p data-lang="en">Full diagnosis of 6 products, market research, competitor analysis, cost estimation, P&L modeling</p>
                 </div>
                 <div class="project-phase">
-                    <h4>第3-4月：优化+筹备</h4>
-                    <p>搭建1000+关键词库，重构广告结构，完成新品Listing创建与产品备货</p>
+                    <h4 data-lang="zh">第3-4月：优化+筹备</h4>
+                    <h4 data-lang="en">Phase 3-4: Optimization & Preparation</h4>
+                    <p data-lang="zh">搭建1000+关键词库，重构广告结构，完成新品Listing创建与产品备货</p>
+                    <p data-lang="en">Built 1,000+ keyword library, restructured PPC, completed listing creation and inventory sourcing</p>
                 </div>
                 <div class="project-phase">
-                    <h4>第5-6月：上新+数据</h4>
-                    <p>新品上架快速起量，建立数据分析体系，Power BI看板上线</p>
+                    <h4 data-lang="zh">第5-6月：上新+数据</h4>
+                    <h4 data-lang="en">Phase 5-6: Launch & Analytics</h4>
+                    <p data-lang="zh">新品上架快速起量，建立数据分析体系，Power BI看板上线</p>
+                    <p data-lang="en">Rapid new product ramp-up, analytics framework established, Power BI dashboards deployed</p>
                 </div>
                 <div class="project-phase">
-                    <h4>第7-8月：扩张+利润</h4>
-                    <p>新品单月增长660%，识别2款盈利产品，优化资源配置，12月整体销售355万</p>
+                    <h4 data-lang="zh">第7-8月：扩张+利润</h4>
+                    <h4 data-lang="en">Phase 7-8: Scale & Profitability</h4>
+                    <p data-lang="zh">新品单月增长660%，识别2款盈利产品，优化资源配置，12月整体销售355万</p>
+                    <p data-lang="en">New product monthly growth 660%, 2 profitable products identified, December total ¥3.55M</p>
                 </div>
             </div>
         </div>
 
         <!-- 技能 -->
         <div class="section">
-            <h2 class="section-title">核心技能</h2>
-            <div class="skills">
+            <h2 class="section-title" data-lang="zh">核心技能</h2>
+            <h2 class="section-title" data-lang="en">Core Skills</h2>
+            <div class="skills" data-lang="zh">
                 <span class="skill-tag">亚马逊多站点运营</span>
                 <span class="skill-tag">新品从0到1</span>
                 <span class="skill-tag">Listing优化</span>
@@ -893,12 +724,27 @@
                 <span class="skill-tag">成本优化</span>
                 <span class="skill-tag">团队协作</span>
             </div>
+            <div class="skills" data-lang="en">
+                <span class="skill-tag">Amazon Multi-Marketplace</span>
+                <span class="skill-tag">New Product Launch 0→1</span>
+                <span class="skill-tag">Listing Optimization</span>
+                <span class="skill-tag">PPC Advertising</span>
+                <span class="skill-tag">Power BI</span>
+                <span class="skill-tag">Excel Modeling</span>
+                <span class="skill-tag">AI Tools</span>
+                <span class="skill-tag">P&L Management</span>
+                <span class="skill-tag">VAT/WEEE/EPR Compliance</span>
+                <span class="skill-tag">Data Analytics</span>
+                <span class="skill-tag">Cost Optimization</span>
+                <span class="skill-tag">Team Collaboration</span>
+            </div>
         </div>
 
-        <!-- 教育 & 证书 -->
+        <!-- 教育 -->
         <div class="section">
-            <h2 class="section-title">教育背景 & 资格证书</h2>
-            <div class="education">
+            <h2 class="section-title" data-lang="zh">教育背景 & 资格证书</h2>
+            <h2 class="section-title" data-lang="en">Education & Certifications</h2>
+            <div class="education" data-lang="zh">
                 <div class="edu-item">
                     <h3>教育背景</h3>
                     <p>井冈山大学</p>
@@ -911,470 +757,260 @@
                     <p>羽毛球教练资格证</p>
                 </div>
             </div>
+            <div class="education" data-lang="en">
+                <div class="edu-item">
+                    <h3>Education</h3>
+                    <p>Jinggangshan University</p>
+                    <p>B.S. in Financial Management</p>
+                    <p>2010 - 2015</p>
+                </div>
+                <div class="edu-item">
+                    <h3>Certifications</h3>
+                    <p>Intermediate Accounting Title</p>
+                    <p>Certified Badminton Coach</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- 操作按钮 -->
     <div class="action-buttons">
-        <button class="action-btn" onclick="openModal('interview')">📅 约面试</button>
-        <button class="action-btn secondary" onclick="openModal('offer')">📄 发送Offer</button>
+        <button class="action-btn" onclick="openModal('interview')">
+            <span data-lang="zh">📅 约面试</span>
+            <span data-lang="en">📅 Interview</span>
+        </button>
+        <button class="action-btn secondary" onclick="openModal('offer')">
+            <span data-lang="zh">📄 发送Offer</span>
+            <span data-lang="en">📄 Send Offer</span>
+        </button>
     </div>
 
-    <!-- 约面试弹窗 -->
+    <!-- 面试弹窗 -->
     <div id="interviewModal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('interview')">&times;</button>
             <div class="modal-header">
-                <h2>约面试</h2>
-                <p>请填写以下信息，我会尽快回复</p>
+                <h2 data-lang="zh">约面试</h2>
+                <h2 data-lang="en">Schedule Interview</h2>
+                <p data-lang="zh">请填写以下信息，我会尽快回复</p>
+                <p data-lang="en">Fill in the details and I'll get back to you ASAP</p>
             </div>
             <div class="send-method-note">
                 <span class="icon">💡</span>
-                <p>点击发送后将自动打开您的邮件客户端，直接发送邀约邮件给我</p>
+                <p data-lang="zh">点击发送后将自动打开您的邮件客户端，直接发送邀约邮件给我</p>
+                <p data-lang="en">Clicking send will open your email client to send the invitation directly</p>
             </div>
-            <div id="interviewFormFields">
+            <div>
                 <div class="form-group">
-                    <label>公司名称 *</label>
-                    <input type="text" id="iv_company" required>
+                    <label data-lang="zh">公司名称 *</label><label data-lang="en">Company *</label>
+                    <input type="text" id="iv_company">
                 </div>
-                
                 <div class="form-group">
-                    <label>您的姓名 *</label>
-                    <input type="text" id="iv_name" required>
+                    <label data-lang="zh">您的姓名 *</label><label data-lang="en">Your Name *</label>
+                    <input type="text" id="iv_name">
                 </div>
-                
                 <div class="form-group">
-                    <label>联系方式 *</label>
-                    <input type="text" id="iv_contact" required placeholder="手机号或微信">
+                    <label data-lang="zh">联系方式 *</label><label data-lang="en">Contact *</label>
+                    <input type="text" id="iv_contact" placeholder="手机号或微信">
                 </div>
-                
                 <div class="form-group">
-                    <label>职位名称 *</label>
-                    <input type="text" id="iv_position" required>
+                    <label data-lang="zh">职位名称 *</label><label data-lang="en">Position *</label>
+                    <input type="text" id="iv_position">
                 </div>
-                
                 <div class="form-group">
-                    <label>期望面试时间 *</label>
-                    <div class="calendar-wrapper" id="iv_cal_wrapper">
-                        <input type="text" id="iv_datetime" class="calendar-input" readonly required placeholder="点击选择日期和时间">
+                    <label data-lang="zh">期望面试时间 *</label><label data-lang="en">Interview Time *</label>
+                    <div class="calendar-wrapper">
+                        <input type="text" id="iv_datetime" class="calendar-input" readonly placeholder="点击选择日期和时间">
                         <div class="calendar-dropdown" id="iv_calendar"></div>
                     </div>
                 </div>
-                
                 <div class="form-group">
-                    <label>面试地址/线上会议链接</label>
-                    <input type="text" id="iv_address" placeholder="地址或会议链接">
+                    <label data-lang="zh">面试地址/线上会议链接</label><label data-lang="en">Location / Meeting Link</label>
+                    <input type="text" id="iv_address">
                 </div>
-                
                 <div class="form-group">
-                    <label>备注</label>
-                    <textarea id="iv_note" placeholder="其他需要说明的信息"></textarea>
+                    <label data-lang="zh">备注</label><label data-lang="en">Notes</label>
+                    <textarea id="iv_note"></textarea>
                 </div>
-                
-                <button type="button" class="submit-btn" onclick="submitInterview()">发送面试邀约</button>
+                <button type="button" class="submit-btn" onclick="submitInterview()">
+                    <span data-lang="zh">发送面试邀约</span><span data-lang="en">Send Interview Invitation</span>
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- 入职通知弹窗 -->
+    <!-- Offer弹窗 -->
     <div id="offerModal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('offer')">&times;</button>
             <div class="modal-header">
-                <h2>发送入职通知</h2>
-                <p>恭喜！期待加入贵司</p>
+                <h2 data-lang="zh">发送入职通知</h2>
+                <h2 data-lang="en">Send Offer Letter</h2>
+                <p data-lang="zh">恭喜！期待加入贵司</p>
+                <p data-lang="en">Looking forward to joining your team!</p>
             </div>
             <div class="send-method-note">
                 <span class="icon">💡</span>
-                <p>点击发送后将自动打开您的邮件客户端，直接发送Offer邮件给我</p>
+                <p data-lang="zh">点击发送后将自动打开您的邮件客户端，直接发送Offer邮件给我</p>
+                <p data-lang="en">Clicking send will open your email client to send the offer directly</p>
             </div>
-            <div id="offerFormFields">
+            <div>
                 <div class="form-group">
-                    <label>公司名称 *</label>
-                    <input type="text" id="of_company" required>
+                    <label data-lang="zh">公司名称 *</label><label data-lang="en">Company *</label>
+                    <input type="text" id="of_company">
                 </div>
-                
                 <div class="form-group">
-                    <label>HR姓名 *</label>
-                    <input type="text" id="of_name" required>
+                    <label data-lang="zh">HR姓名 *</label><label data-lang="en">HR Name *</label>
+                    <input type="text" id="of_name">
                 </div>
-                
                 <div class="form-group">
-                    <label>联系方式 *</label>
-                    <input type="text" id="of_contact" required placeholder="手机号或微信">
+                    <label data-lang="zh">联系方式 *</label><label data-lang="en">Contact *</label>
+                    <input type="text" id="of_contact">
                 </div>
-                
                 <div class="form-group">
-                    <label>入职岗位 *</label>
-                    <input type="text" id="of_position" required>
+                    <label data-lang="zh">入职岗位 *</label><label data-lang="en">Position *</label>
+                    <input type="text" id="of_position">
                 </div>
-                
                 <div class="form-group">
-                    <label>期望入职时间 *</label>
-                    <div class="calendar-wrapper" id="of_cal_wrapper">
-                        <input type="text" id="of_date" class="calendar-input" readonly required placeholder="点击选择日期">
+                    <label data-lang="zh">期望入职时间 *</label><label data-lang="en">Start Date *</label>
+                    <div class="calendar-wrapper">
+                        <input type="text" id="of_date" class="calendar-input" readonly placeholder="点击选择日期">
                         <div class="calendar-dropdown" id="of_calendar"></div>
                     </div>
                 </div>
-                
                 <div class="form-group">
-                    <label>薪资待遇</label>
-                    <input type="text" id="of_salary" placeholder="例如：底薪+提成">
+                    <label data-lang="zh">薪资待遇</label><label data-lang="en">Compensation</label>
+                    <input type="text" id="of_salary">
                 </div>
-                
                 <div class="form-group">
-                    <label>工作地点</label>
+                    <label data-lang="zh">工作地点</label><label data-lang="en">Work Location</label>
                     <input type="text" id="of_location">
                 </div>
-                
                 <div class="form-group">
-                    <label>其他说明</label>
-                    <textarea id="of_note" placeholder="福利待遇、团队规模等"></textarea>
+                    <label data-lang="zh">其他说明</label><label data-lang="en">Additional Details</label>
+                    <textarea id="of_note"></textarea>
                 </div>
-                
-                <button type="button" class="submit-btn" onclick="submitOffer()">发送入职通知</button>
+                <button type="button" class="submit-btn" onclick="submitOffer()">
+                    <span data-lang="zh">发送入职通知</span><span data-lang="en">Send Offer Letter</span>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-    // ==========================================
-    //  日历组件
-    // ==========================================
+    let currentLang = 'zh';
+
+    function switchLang(lang) {
+        currentLang = lang;
+        document.body.classList.toggle('en', lang === 'en');
+        document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
+        document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        const ph = lang === 'zh'
+            ? { iv_contact:'手机号或微信', iv_datetime:'点击选择日期和时间', iv_address:'地址或会议链接', iv_note:'其他需要说明的信息', of_date:'点击选择日期', of_salary:'例如：底薪+提成', of_note:'福利待遇、团队规模等' }
+            : { iv_contact:'Phone or WeChat', iv_datetime:'Click to select date & time', iv_address:'Address or meeting link', iv_note:'Any additional info', of_date:'Click to select date', of_salary:'e.g. Base + Commission', of_note:'Benefits, team size, etc.' };
+        Object.entries(ph).forEach(([id, v]) => { const el = document.getElementById(id); if(el) el.placeholder = v; });
+        if (ivCalendar) ivCalendar.render();
+        if (ofCalendar) ofCalendar.render();
+    }
+
     class CalendarPicker {
         constructor(inputEl, dropdownEl, options = {}) {
-            this.input = inputEl;
-            this.dropdown = dropdownEl;
+            this.input = inputEl; this.dropdown = dropdownEl;
             this.showTime = options.showTime || false;
-            this.onSelect = options.onSelect || null;
-            
             this.today = new Date();
             this.currentMonth = this.today.getMonth();
             this.currentYear = this.today.getFullYear();
-            this.selectedDate = null;
-            this.selectedHour = 10;
-            this.selectedMinute = 0;
-            
-            this.monthNames = ['一月', '二月', '三月', '四月', '五月', '六月',
-                               '七月', '八月', '九月', '十月', '十一月', '十二月'];
-            this.weekDays = ['日', '一', '二', '三', '四', '五', '六'];
-            
+            this.selectedDate = null; this.selectedHour = 10; this.selectedMinute = 0;
             this.init();
         }
-
-        init() {
-            this.input.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // 关闭其他日历
-                document.querySelectorAll('.calendar-dropdown.open').forEach(d => {
-                    if (d !== this.dropdown) d.classList.remove('open');
-                });
-                this.dropdown.classList.toggle('open');
-                if (this.dropdown.classList.contains('open')) {
-                    this.render();
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!this.dropdown.contains(e.target) && e.target !== this.input) {
-                    this.dropdown.classList.remove('open');
-                }
-            });
-
-            this.dropdown.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
+        get monthNames() {
+            return currentLang === 'zh' ? ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'] : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         }
-
+        get weekDays() { return currentLang === 'zh' ? ['日','一','二','三','四','五','六'] : ['Su','Mo','Tu','We','Th','Fr','Sa']; }
+        init() {
+            this.input.addEventListener('click', e => {
+                e.stopPropagation();
+                document.querySelectorAll('.calendar-dropdown.open').forEach(d => { if (d !== this.dropdown) d.classList.remove('open'); });
+                this.dropdown.classList.toggle('open');
+                if (this.dropdown.classList.contains('open')) this.render();
+            });
+            document.addEventListener('click', e => { if (!this.dropdown.contains(e.target) && e.target !== this.input) this.dropdown.classList.remove('open'); });
+            this.dropdown.addEventListener('click', e => e.stopPropagation());
+        }
         render() {
             const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
             const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
             const daysInPrev = new Date(this.currentYear, this.currentMonth, 0).getDate();
-            
-            let html = `
-                <div class="cal-nav">
-                    <button onclick="this.closest('.calendar-dropdown')._picker.prevMonth()">‹</button>
-                    <span class="cal-month-year">${this.currentYear}年 ${this.monthNames[this.currentMonth]}</span>
-                    <button onclick="this.closest('.calendar-dropdown')._picker.nextMonth()">›</button>
-                </div>
-                <div class="cal-weekdays">
-                    ${this.weekDays.map(d => `<span>${d}</span>`).join('')}
-                </div>
-                <div class="cal-days">
-            `;
-            
-            // 上月日期
-            for (let i = firstDay - 1; i >= 0; i--) {
-                html += `<button class="cal-day other-month disabled">${daysInPrev - i}</button>`;
-            }
-            
-            // 本月日期
+            let html = `<div class="cal-nav"><button onclick="this.closest('.calendar-dropdown')._picker.prevMonth()">‹</button><span class="cal-month-year">${currentLang==='zh' ? this.currentYear+'年 ' : ''}${this.monthNames[this.currentMonth]}${currentLang==='en' ? ' '+this.currentYear : ''}</span><button onclick="this.closest('.calendar-dropdown')._picker.nextMonth()">›</button></div>`;
+            html += `<div class="cal-weekdays">${this.weekDays.map(d=>`<span>${d}</span>`).join('')}</div><div class="cal-days">`;
+            for (let i = firstDay-1; i >= 0; i--) html += `<button class="cal-day other-month disabled">${daysInPrev-i}</button>`;
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(this.currentYear, this.currentMonth, day);
-                const isToday = this.isSameDay(date, this.today);
-                const isSelected = this.selectedDate && this.isSameDay(date, this.selectedDate);
+                const isToday = this.isSameDay(date, this.today), isSelected = this.selectedDate && this.isSameDay(date, this.selectedDate);
                 const isPast = date < new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
-                
-                let cls = 'cal-day';
-                if (isToday) cls += ' today';
-                if (isSelected) cls += ' selected';
-                if (isPast) cls += ' disabled';
-                
-                if (isPast) {
-                    html += `<button class="${cls}">${day}</button>`;
-                } else {
-                    html += `<button class="${cls}" onclick="this.closest('.calendar-dropdown')._picker.selectDay(${day})">${day}</button>`;
-                }
+                let cls = 'cal-day'; if(isToday) cls+=' today'; if(isSelected) cls+=' selected'; if(isPast) cls+=' disabled';
+                html += isPast ? `<button class="${cls}">${day}</button>` : `<button class="${cls}" onclick="this.closest('.calendar-dropdown')._picker.selectDay(${day})">${day}</button>`;
             }
-            
-            // 下月日期填充
-            const totalCells = firstDay + daysInMonth;
-            const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-            for (let i = 1; i <= remaining; i++) {
-                html += `<button class="cal-day other-month disabled">${i}</button>`;
-            }
-            
+            const rem = (firstDay+daysInMonth)%7===0 ? 0 : 7-(firstDay+daysInMonth)%7;
+            for (let i=1;i<=rem;i++) html+=`<button class="cal-day other-month disabled">${i}</button>`;
             html += '</div>';
-            
-            // 时间选择器
             if (this.showTime) {
-                let hourOptions = '';
-                for (let h = 8; h <= 21; h++) {
-                    const hStr = h.toString().padStart(2, '0');
-                    const sel = h === this.selectedHour ? 'selected' : '';
-                    hourOptions += `<option value="${h}" ${sel}>${hStr}</option>`;
-                }
-                let minOptions = '';
-                for (let m = 0; m < 60; m += 15) {
-                    const mStr = m.toString().padStart(2, '0');
-                    const sel = m === this.selectedMinute ? 'selected' : '';
-                    minOptions += `<option value="${m}" ${sel}>${mStr}</option>`;
-                }
-                html += `
-                    <div class="time-picker-row">
-                        <label>时间</label>
-                        <select class="time-select" id="${this.dropdown.id}_hour" onchange="this.closest('.calendar-dropdown')._picker.selectedHour=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">
-                            ${hourOptions}
-                        </select>
-                        <span class="time-colon">:</span>
-                        <select class="time-select" id="${this.dropdown.id}_min" onchange="this.closest('.calendar-dropdown')._picker.selectedMinute=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">
-                            ${minOptions}
-                        </select>
-                    </div>
-                `;
+                let hOpts='',mOpts='';
+                for(let h=8;h<=21;h++) hOpts+=`<option value="${h}" ${h===this.selectedHour?'selected':''}>${String(h).padStart(2,'0')}</option>`;
+                for(let m=0;m<60;m+=15) mOpts+=`<option value="${m}" ${m===this.selectedMinute?'selected':''}>${String(m).padStart(2,'0')}</option>`;
+                html+=`<div class="time-picker-row"><label>${currentLang==='zh'?'时间':'Time'}</label><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedHour=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${hOpts}</select><span class="time-colon">:</span><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedMinute=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${mOpts}</select></div>`;
             }
-
-            // 确认按钮
-            html += `<button class="cal-confirm" onclick="this.closest('.calendar-dropdown')._picker.confirm()">确认选择</button>`;
-            
-            this.dropdown.innerHTML = html;
-            this.dropdown._picker = this;
+            html+=`<button class="cal-confirm" onclick="this.closest('.calendar-dropdown')._picker.confirm()">${currentLang==='zh'?'确认选择':'Confirm'}</button>`;
+            this.dropdown.innerHTML = html; this.dropdown._picker = this;
         }
-
-        selectDay(day) {
-            this.selectedDate = new Date(this.currentYear, this.currentMonth, day);
-            this.updateInput();
-            this.render();
-        }
-
+        selectDay(day) { this.selectedDate = new Date(this.currentYear, this.currentMonth, day); this.updateInput(); this.render(); }
         updateInput() {
-            if (!this.selectedDate) return;
-            const y = this.selectedDate.getFullYear();
-            const m = (this.selectedDate.getMonth() + 1).toString().padStart(2, '0');
-            const d = this.selectedDate.getDate().toString().padStart(2, '0');
-            
-            if (this.showTime) {
-                const h = this.selectedHour.toString().padStart(2, '0');
-                const min = this.selectedMinute.toString().padStart(2, '0');
-                this.input.value = `${y}-${m}-${d}  ${h}:${min}`;
-            } else {
-                this.input.value = `${y}-${m}-${d}`;
-            }
+            if(!this.selectedDate) return;
+            const y=this.selectedDate.getFullYear(), m=String(this.selectedDate.getMonth()+1).padStart(2,'0'), d=String(this.selectedDate.getDate()).padStart(2,'0');
+            this.input.value = this.showTime ? `${y}-${m}-${d}  ${String(this.selectedHour).padStart(2,'0')}:${String(this.selectedMinute).padStart(2,'0')}` : `${y}-${m}-${d}`;
         }
-
-        confirm() {
-            if (!this.selectedDate) {
-                // 如果没选日期，选今天
-                this.selectedDate = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
-            }
-            this.updateInput();
-            this.dropdown.classList.remove('open');
-            if (this.onSelect) this.onSelect(this.input.value);
-        }
-
-        prevMonth() {
-            this.currentMonth--;
-            if (this.currentMonth < 0) {
-                this.currentMonth = 11;
-                this.currentYear--;
-            }
-            this.render();
-        }
-
-        nextMonth() {
-            this.currentMonth++;
-            if (this.currentMonth > 11) {
-                this.currentMonth = 0;
-                this.currentYear++;
-            }
-            this.render();
-        }
-
-        isSameDay(a, b) {
-            return a.getFullYear() === b.getFullYear() &&
-                   a.getMonth() === b.getMonth() &&
-                   a.getDate() === b.getDate();
-        }
+        confirm() { if(!this.selectedDate) this.selectedDate=new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()); this.updateInput(); this.dropdown.classList.remove('open'); }
+        prevMonth() { if(--this.currentMonth<0){this.currentMonth=11;this.currentYear--;} this.render(); }
+        nextMonth() { if(++this.currentMonth>11){this.currentMonth=0;this.currentYear++;} this.render(); }
+        isSameDay(a,b) { return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
     }
 
-    // ==========================================
-    //  初始化日历
-    // ==========================================
     let ivCalendar, ofCalendar;
-
     document.addEventListener('DOMContentLoaded', () => {
-        ivCalendar = new CalendarPicker(
-            document.getElementById('iv_datetime'),
-            document.getElementById('iv_calendar'),
-            { showTime: true }
-        );
-
-        ofCalendar = new CalendarPicker(
-            document.getElementById('of_date'),
-            document.getElementById('of_calendar'),
-            { showTime: false }
-        );
+        ivCalendar = new CalendarPicker(document.getElementById('iv_datetime'), document.getElementById('iv_calendar'), {showTime:true});
+        ofCalendar = new CalendarPicker(document.getElementById('of_date'), document.getElementById('of_calendar'), {showTime:false});
+        switchLang('zh');
     });
 
-    // ==========================================
-    //  弹窗控制
-    // ==========================================
-    function openModal(type) {
-        const modalId = type === 'interview' ? 'interviewModal' : 'offerModal';
-        document.getElementById(modalId).classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    function openModal(t) { document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.add('active'); document.body.style.overflow='hidden'; }
+    function closeModal(t) { document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.remove('active'); document.body.style.overflow='auto'; }
+    window.onclick = e => { if(e.target.classList.contains('modal')){e.target.classList.remove('active');document.body.style.overflow='auto';} };
 
-    function closeModal(type) {
-        const modalId = type === 'interview' ? 'interviewModal' : 'offerModal';
-        document.getElementById(modalId).classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    }
-
-    // ==========================================
-    //  表单提交 → mailto
-    // ==========================================
     const TARGET_EMAIL = '739347960@qq.com';
-
-    function validateRequired(fields) {
-        for (const f of fields) {
-            const el = document.getElementById(f.id);
-            if (!el.value.trim()) {
-                el.style.borderColor = '#ff3333';
-                el.focus();
-                el.addEventListener('input', () => { el.style.borderColor = '#333'; }, { once: true });
-                alert('请填写：' + f.label);
-                return false;
-            }
-        }
+    function validate(fields) {
+        for(const f of fields) { const el=document.getElementById(f.id); if(!el.value.trim()){ el.style.borderColor='#ff3333'; el.focus(); el.addEventListener('input',()=>{el.style.borderColor='#333';},{once:true}); alert(currentLang==='zh'?'请填写：'+f.zh:'Please fill in: '+f.en); return false; } }
         return true;
     }
+    const v = id => document.getElementById(id).value.trim();
 
     function submitInterview() {
-        const fields = [
-            { id: 'iv_company', label: '公司名称' },
-            { id: 'iv_name', label: '您的姓名' },
-            { id: 'iv_contact', label: '联系方式' },
-            { id: 'iv_position', label: '职位名称' },
-            { id: 'iv_datetime', label: '面试时间' },
-        ];
-        if (!validateRequired(fields)) return;
-
-        const company = document.getElementById('iv_company').value.trim();
-        const name = document.getElementById('iv_name').value.trim();
-        const contact = document.getElementById('iv_contact').value.trim();
-        const position = document.getElementById('iv_position').value.trim();
-        const datetime = document.getElementById('iv_datetime').value.trim();
-        const address = document.getElementById('iv_address').value.trim();
-        const note = document.getElementById('iv_note').value.trim();
-
-        const subject = `【面试邀约】${company} - ${position}`;
-        const body = [
-            `杜炜Neo 您好！`,
-            ``,
-            `诚邀您参加面试，详情如下：`,
-            ``,
-            `公司名称：${company}`,
-            `联系人：${name}`,
-            `联系方式：${contact}`,
-            `职位名称：${position}`,
-            `面试时间：${datetime}`,
-            address ? `面试地址：${address}` : '',
-            note ? `备注：${note}` : '',
-            ``,
-            `期待您的回复！`,
-        ].filter(Boolean).join('\n');
-
-        window.location.href = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        if(!validate([{id:'iv_company',zh:'公司名称',en:'Company'},{id:'iv_name',zh:'姓名',en:'Name'},{id:'iv_contact',zh:'联系方式',en:'Contact'},{id:'iv_position',zh:'职位',en:'Position'},{id:'iv_datetime',zh:'面试时间',en:'Time'}])) return;
+        const company=v('iv_company'),name=v('iv_name'),contact=v('iv_contact'),pos=v('iv_position'),dt=v('iv_datetime'),addr=v('iv_address'),note=v('iv_note');
+        let subj,body;
+        if(currentLang==='zh') { subj=`【面试邀约】${company} - ${pos}`; body=[`杜炜Neo 您好！`,``,`诚邀您参加面试：`,``,`公司：${company}`,`联系人：${name}`,`联系方式：${contact}`,`职位：${pos}`,`时间：${dt}`,addr?`地址：${addr}`:'',note?`备注：${note}`:'',``,`期待您的回复！`].filter(Boolean).join('\n'); }
+        else { subj=`[Interview] ${company} - ${pos}`; body=[`Dear Neo,`,``,`We'd like to invite you for an interview:`,``,`Company: ${company}`,`Contact: ${name}`,`Phone/WeChat: ${contact}`,`Position: ${pos}`,`Time: ${dt}`,addr?`Location: ${addr}`:'',note?`Notes: ${note}`:'',``,`Looking forward to your reply!`].filter(Boolean).join('\n'); }
+        window.location.href=`mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
     }
 
     function submitOffer() {
-        const fields = [
-            { id: 'of_company', label: '公司名称' },
-            { id: 'of_name', label: 'HR姓名' },
-            { id: 'of_contact', label: '联系方式' },
-            { id: 'of_position', label: '入职岗位' },
-            { id: 'of_date', label: '入职时间' },
-        ];
-        if (!validateRequired(fields)) return;
-
-        const company = document.getElementById('of_company').value.trim();
-        const name = document.getElementById('of_name').value.trim();
-        const contact = document.getElementById('of_contact').value.trim();
-        const position = document.getElementById('of_position').value.trim();
-        const date = document.getElementById('of_date').value.trim();
-        const salary = document.getElementById('of_salary').value.trim();
-        const location = document.getElementById('of_location').value.trim();
-        const note = document.getElementById('of_note').value.trim();
-
-        const subject = `【入职通知】${company} - ${position}`;
-        const body = [
-            `杜炜Neo 您好！`,
-            ``,
-            `恭喜您通过面试，现发送入职通知如下：`,
-            ``,
-            `公司名称：${company}`,
-            `HR：${name}`,
-            `联系方式：${contact}`,
-            `入职岗位：${position}`,
-            `入职时间：${date}`,
-            salary ? `薪资待遇：${salary}` : '',
-            location ? `工作地点：${location}` : '',
-            note ? `其他说明：${note}` : '',
-            ``,
-            `期待您的加入！`,
-        ].filter(Boolean).join('\n');
-
-        window.location.href = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        if(!validate([{id:'of_company',zh:'公司名称',en:'Company'},{id:'of_name',zh:'HR姓名',en:'HR Name'},{id:'of_contact',zh:'联系方式',en:'Contact'},{id:'of_position',zh:'岗位',en:'Position'},{id:'of_date',zh:'入职时间',en:'Start Date'}])) return;
+        const company=v('of_company'),name=v('of_name'),contact=v('of_contact'),pos=v('of_position'),date=v('of_date'),salary=v('of_salary'),loc=v('of_location'),note=v('of_note');
+        let subj,body;
+        if(currentLang==='zh') { subj=`【入职通知】${company} - ${pos}`; body=[`杜炜Neo 您好！`,``,`恭喜您通过面试：`,``,`公司：${company}`,`HR：${name}`,`联系方式：${contact}`,`岗位：${pos}`,`入职时间：${date}`,salary?`薪资：${salary}`:'',loc?`地点：${loc}`:'',note?`说明：${note}`:'',``,`期待您的加入！`].filter(Boolean).join('\n'); }
+        else { subj=`[Offer] ${company} - ${pos}`; body=[`Dear Neo,`,``,`We're pleased to extend the following offer:`,``,`Company: ${company}`,`HR: ${name}`,`Contact: ${contact}`,`Position: ${pos}`,`Start: ${date}`,salary?`Compensation: ${salary}`:'',loc?`Location: ${loc}`:'',note?`Details: ${note}`:'',``,`Welcome to the team!`].filter(Boolean).join('\n'); }
+        window.location.href=`mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
     }
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
     </script>
 </body>
 </html>
