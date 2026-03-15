@@ -5,424 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>杜炜Neo - Amazon Operations Manager - 在线简历</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            color: #fff;
-            background: #0a0a0a;
+            line-height: 1.6; color: #fff; background: #0a0a0a;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
 
-        /* 语言切换按钮 */
+        /* 语言切换 - 只隐藏不该显示的，保留原始 display */
+        body:not(.en) [data-lang="en"] { display: none !important; }
+        body.en [data-lang="zh"] { display: none !important; }
+
+        /* 语言按钮 */
         .lang-switch {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            z-index: 3000;
-            display: flex;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            position: fixed; top: 20px; right: 30px; z-index: 3000;
+            display: flex; background: #1a1a1a; border: 1px solid #333;
+            border-radius: 30px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-
         .lang-btn {
-            padding: 8px 18px;
-            border: none;
-            background: transparent;
-            color: #999;
-            font-size: 0.88rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-weight: 500;
-            letter-spacing: 0.03em;
+            padding: 8px 18px; border: none; background: transparent; color: #999;
+            font-size: 0.88rem; cursor: pointer; transition: all 0.25s ease;
+            font-weight: 500; letter-spacing: 0.03em;
         }
+        .lang-btn.active { background: #ff3333; color: #fff; font-weight: 600; }
+        .lang-btn:hover:not(.active) { color: #ff3333; }
 
-        .lang-btn.active {
-            background: #ff3333;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: #ff3333;
-        }
-
-        /* 语言显示控制 */
-        [data-lang="en"] { display: none; }
-        body.en [data-lang="zh"] { display: none; }
-        body.en [data-lang="en"] { display: revert; }
-
-        /* 头部信息 */
+        /* 头部 */
         .header {
-            text-align: center;
-            padding: 60px 0 40px;
-            border-bottom: 2px solid #ff3333;
-            margin-bottom: 40px;
+            text-align: center; padding: 60px 0 40px;
+            border-bottom: 2px solid #ff3333; margin-bottom: 40px;
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            color: #ff3333;
-            margin-bottom: 10px;
-        }
-
-        .header .title {
-            font-size: 1.3rem;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
+        .header h1 { font-size: 2.5rem; color: #ff3333; margin-bottom: 10px; }
+        .header .title { font-size: 1.3rem; color: #ccc; margin-bottom: 20px; }
         .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            display: flex; justify-content: center; gap: 30px;
+            flex-wrap: wrap; margin-top: 20px;
         }
+        .contact-info span { color: #ccc; font-size: 0.95rem; }
+        .contact-info a { color: #ff3333; text-decoration: none; }
 
-        .contact-info span {
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        .contact-info a {
-            color: #ff3333;
-            text-decoration: none;
-        }
-
-        .section {
-            margin-bottom: 50px;
-        }
-
+        /* 章节 */
+        .section { margin-bottom: 50px; }
         .section-title {
-            font-size: 1.8rem;
-            color: #ff3333;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            position: relative;
+            font-size: 1.8rem; color: #ff3333; border-bottom: 2px solid #333;
+            padding-bottom: 10px; margin-bottom: 25px; position: relative;
         }
-
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 80px;
-            height: 2px;
-            background: #ff3333;
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 80px; height: 2px; background: #ff3333;
         }
 
-        .advantages {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
+        /* 卡片 */
+        .advantages, .job, .project {
+            background: #1a1a1a; border: 1px solid #333;
+            border-radius: 10px; padding: 30px; margin-bottom: 25px;
         }
-
-        .advantages h3 {
-            color: #ff3333;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .advantages p {
-            color: #ccc;
-            line-height: 1.8;
-            margin-bottom: 10px;
-        }
+        .advantages h3 { color: #ff3333; font-size: 1.2rem; margin-bottom: 15px; }
+        .advantages p { color: #ccc; line-height: 1.8; margin-bottom: 10px; }
 
         .highlight-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-top: 20px;
         }
-
         .stat-item {
-            background: #0a0a0a;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            text-align: center;
+            background: #0a0a0a; padding: 15px; border-radius: 8px;
+            border: 1px solid #333; text-align: center;
         }
-
-        .stat-value {
-            font-size: 1.5rem;
-            color: #ff3333;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #999;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .job {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 25px;
-        }
+        .stat-value { font-size: 1.5rem; color: #ff3333; font-weight: bold; }
+        .stat-label { color: #999; font-size: 0.9rem; margin-top: 5px; }
 
         .job-header { margin-bottom: 20px; }
-
         .job-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: baseline;
+            flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
         }
-
         .job-title h3 { color: #fff; font-size: 1.3rem; }
         .job-date { color: #999; font-size: 0.95rem; }
         .company { color: #ff3333; font-size: 1.1rem; margin-bottom: 5px; }
-
-        .job-subtitle {
-            color: #ff3333;
-            font-size: 1rem;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
+        .job-subtitle { color: #ff3333; font-size: 1rem; margin-top: 15px; margin-bottom: 10px; font-weight: 600; }
 
         .job ul, .project ul { list-style: none; margin-left: 0; }
-
         .job ul li, .project ul li {
-            color: #ccc;
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
+            color: #ccc; margin-bottom: 10px; padding-left: 20px; position: relative;
         }
-
         .job ul li::before, .project ul li::before {
-            content: '▪';
-            color: #ff3333;
-            position: absolute;
-            left: 0;
+            content: '▪'; color: #ff3333; position: absolute; left: 0;
         }
 
         .career-path {
-            background: #0a0a0a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
+            background: #0a0a0a; border: 1px solid #333;
+            border-radius: 8px; padding: 20px; margin-top: 20px;
         }
-
         .career-path p { color: #ccc; margin-bottom: 10px; }
 
-        .project {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 25px;
-        }
-
         .project h3 { color: #fff; font-size: 1.3rem; margin-bottom: 15px; }
-
         .project-phase { margin: 20px 0; }
         .project-phase h4 { color: #ff3333; font-size: 1rem; margin-bottom: 10px; }
         .project-phase p { color: #ccc; margin-left: 15px; }
 
+        /* 技能 */
         .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+            display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
         }
-
         .skill-tag {
-            background: #0a0a0a;
-            border: 1px solid #ff3333;
-            color: #ff3333;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            background: #0a0a0a; border: 1px solid #ff3333; color: #ff3333;
+            padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
         }
 
+        /* 教育 */
         .education {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
         }
-
         .edu-item {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 20px;
+            background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 20px;
         }
-
         .edu-item h3 { color: #ff3333; font-size: 1.1rem; margin-bottom: 10px; }
         .edu-item p { color: #ccc; font-size: 0.95rem; }
 
+        /* 操作按钮 */
         .action-buttons {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
+            position: fixed; bottom: 30px; right: 30px;
+            display: flex; flex-direction: column; gap: 15px; z-index: 1000;
         }
-
         .action-btn {
-            background: #ff3333;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 51, 51, 0.3);
-            transition: all 0.3s ease;
-            min-width: 180px;
+            background: #ff3333; color: white; border: none; padding: 15px 25px;
+            border-radius: 50px; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255,51,51,0.3); transition: all 0.3s ease; min-width: 180px;
         }
-
-        .action-btn:hover {
-            background: #ff6666;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(255, 51, 51, 0.5);
-        }
-
-        .action-btn.secondary {
-            background: #1a1a1a;
-            border: 2px solid #ff3333;
-        }
-
+        .action-btn:hover { background: #ff6666; transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255,51,51,0.5); }
+        .action-btn.secondary { background: #1a1a1a; border: 2px solid #ff3333; }
         .action-btn.secondary:hover { background: #ff3333; }
 
+        /* 弹窗 */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
         }
-
         .modal.active { display: flex; }
-
         .modal-content {
-            background: #1a1a1a;
-            border: 2px solid #ff3333;
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 520px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
+            background: #1a1a1a; border: 2px solid #ff3333; border-radius: 15px;
+            padding: 40px; max-width: 520px; width: 100%; max-height: 90vh;
+            overflow-y: auto; position: relative;
         }
-
         .modal-header { margin-bottom: 30px; text-align: center; }
         .modal-header h2 { color: #ff3333; font-size: 1.8rem; margin-bottom: 10px; }
         .modal-header p { color: #999; font-size: 0.95rem; }
-
         .close-btn {
-            position: absolute; top: 20px; right: 20px;
-            background: none; border: none; color: #999;
-            font-size: 2rem; cursor: pointer; line-height: 1;
+            position: absolute; top: 20px; right: 20px; background: none; border: none;
+            color: #999; font-size: 2rem; cursor: pointer; line-height: 1;
         }
         .close-btn:hover { color: #ff3333; }
 
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; color: #ccc; margin-bottom: 8px; font-size: 0.95rem; }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 12px;
-            background: #0a0a0a; border: 1px solid #333;
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333;
             border-radius: 8px; color: #fff; font-size: 1rem; font-family: inherit;
         }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none; border-color: #ff3333;
-        }
-
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #ff3333; }
         .form-group textarea { resize: vertical; min-height: 100px; }
 
         .submit-btn {
-            width: 100%; background: #ff3333; color: white; border: none;
-            padding: 15px; border-radius: 8px; font-size: 1.1rem;
-            cursor: pointer; transition: all 0.3s ease; margin-top: 10px;
+            width: 100%; background: #ff3333; color: white; border: none; padding: 15px;
+            border-radius: 8px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; margin-top: 10px;
         }
         .submit-btn:hover { background: #ff6666; }
 
         /* 日历 */
         .calendar-wrapper { position: relative; }
         .calendar-input { cursor: pointer !important; caret-color: transparent; }
-
         .calendar-dropdown {
-            display: none; position: absolute; top: calc(100% + 6px); left: 0;
-            z-index: 100; background: #111; border: 1px solid #ff3333;
-            border-radius: 12px; padding: 18px; width: 320px;
-            box-shadow: 0 12px 40px rgba(255, 51, 51, 0.2);
-            animation: calFadeIn 0.2s ease;
+            display: none; position: absolute; top: calc(100% + 6px); left: 0; z-index: 100;
+            background: #111; border: 1px solid #ff3333; border-radius: 12px; padding: 18px;
+            width: 320px; box-shadow: 0 12px 40px rgba(255,51,51,0.2); animation: calFadeIn 0.2s ease;
         }
-
-        @keyframes calFadeIn {
-            from { opacity: 0; transform: translateY(-6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes calFadeIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
         .calendar-dropdown.open { display: block; }
-
         .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-
         .cal-nav button {
-            background: none; border: 1px solid #333; color: #ff3333;
-            width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
-            font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+            background: none; border: 1px solid #333; color: #ff3333; width: 32px; height: 32px;
+            border-radius: 8px; cursor: pointer; font-size: 1rem; display: flex;
+            align-items: center; justify-content: center; transition: all 0.15s;
         }
         .cal-nav button:hover { background: #ff3333; color: #fff; border-color: #ff3333; }
-
         .cal-month-year { color: #fff; font-size: 1rem; font-weight: 600; }
-
-        .cal-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 6px; }
-        .cal-weekdays span { color: #666; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; padding: 4px 0; }
-
-        .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-
+        .cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); text-align: center; margin-bottom: 6px; }
+        .cal-weekdays span { color: #666; font-size: 0.75rem; font-weight: 600; padding: 4px 0; }
+        .cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
         .cal-day {
             width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
             border-radius: 8px; cursor: pointer; font-size: 0.88rem; color: #ccc;
             border: none; background: none; transition: all 0.15s;
         }
-        .cal-day:hover:not(.disabled):not(.empty) { background: rgba(255, 51, 51, 0.15); color: #ff3333; }
+        .cal-day:hover:not(.disabled):not(.empty) { background: rgba(255,51,51,0.15); color: #ff3333; }
         .cal-day.today { border: 1px solid #ff3333; color: #ff3333; font-weight: 700; }
-        .cal-day.selected { background: #ff3333 !important; color: #fff !important; font-weight: 700; box-shadow: 0 2px 10px rgba(255, 51, 51, 0.4); }
+        .cal-day.selected { background: #ff3333 !important; color: #fff !important; font-weight: 700; }
         .cal-day.disabled { color: #333; cursor: not-allowed; }
         .cal-day.other-month { color: #444; }
-
         .time-picker-row {
             display: flex; gap: 10px; align-items: center;
             margin-top: 14px; padding-top: 14px; border-top: 1px solid #222;
         }
         .time-picker-row label { color: #999; font-size: 0.85rem; white-space: nowrap; }
-
         .time-select {
             flex: 1; padding: 8px 10px; background: #0a0a0a; border: 1px solid #333;
             border-radius: 8px; color: #fff; font-size: 0.95rem; cursor: pointer;
@@ -430,11 +217,9 @@
         }
         .time-select:focus { outline: none; border-color: #ff3333; }
         .time-colon { color: #ff3333; font-size: 1.2rem; font-weight: 700; }
-
         .cal-confirm {
-            width: 100%; margin-top: 12px; padding: 10px; background: #ff3333;
-            color: #fff; border: none; border-radius: 8px; font-size: 0.95rem;
-            cursor: pointer; font-weight: 600; transition: all 0.15s;
+            width: 100%; margin-top: 12px; padding: 10px; background: #ff3333; color: #fff;
+            border: none; border-radius: 8px; font-size: 0.95rem; cursor: pointer; font-weight: 600;
         }
         .cal-confirm:hover { background: #ff5555; }
 
@@ -442,7 +227,7 @@
             background: #0a0a0a; border: 1px solid #333; border-radius: 8px;
             padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px;
         }
-        .send-method-note .icon { color: #ff3333; font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .send-method-note .icon { color: #ff3333; font-size: 1.1rem; flex-shrink: 0; }
         .send-method-note p { color: #999; font-size: 0.85rem; line-height: 1.5; }
 
         @media (max-width: 768px) {
@@ -706,7 +491,7 @@
             </div>
         </div>
 
-        <!-- 技能 -->
+        <!-- 核心技能 -->
         <div class="section">
             <h2 class="section-title" data-lang="zh">核心技能</h2>
             <h2 class="section-title" data-lang="en">Core Skills</h2>
@@ -907,108 +692,94 @@
         document.getElementById('btnEN').classList.toggle('active', lang === 'en');
         document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
         const ph = lang === 'zh'
-            ? { iv_contact:'手机号或微信', iv_datetime:'点击选择日期和时间', iv_address:'地址或会议链接', iv_note:'其他需要说明的信息', of_date:'点击选择日期', of_salary:'例如：底薪+提成', of_note:'福利待遇、团队规模等' }
-            : { iv_contact:'Phone or WeChat', iv_datetime:'Click to select date & time', iv_address:'Address or meeting link', iv_note:'Any additional info', of_date:'Click to select date', of_salary:'e.g. Base + Commission', of_note:'Benefits, team size, etc.' };
-        Object.entries(ph).forEach(([id, v]) => { const el = document.getElementById(id); if(el) el.placeholder = v; });
-        if (ivCalendar) ivCalendar.render();
-        if (ofCalendar) ofCalendar.render();
+            ? {iv_contact:'手机号或微信',iv_datetime:'点击选择日期和时间',iv_address:'地址或会议链接',iv_note:'其他需要说明的信息',of_date:'点击选择日期',of_salary:'例如：底薪+提成',of_note:'福利待遇、团队规模等'}
+            : {iv_contact:'Phone or WeChat',iv_datetime:'Click to select date & time',iv_address:'Address or meeting link',iv_note:'Any additional info',of_date:'Click to select date',of_salary:'e.g. Base + Commission',of_note:'Benefits, team size, etc.'};
+        Object.entries(ph).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.placeholder=v;});
+        if(ivCalendar)ivCalendar.render();
+        if(ofCalendar)ofCalendar.render();
     }
 
     class CalendarPicker {
-        constructor(inputEl, dropdownEl, options = {}) {
-            this.input = inputEl; this.dropdown = dropdownEl;
-            this.showTime = options.showTime || false;
-            this.today = new Date();
-            this.currentMonth = this.today.getMonth();
-            this.currentYear = this.today.getFullYear();
-            this.selectedDate = null; this.selectedHour = 10; this.selectedMinute = 0;
-            this.init();
+        constructor(inputEl,dropdownEl,options={}){
+            this.input=inputEl;this.dropdown=dropdownEl;this.showTime=options.showTime||false;
+            this.today=new Date();this.currentMonth=this.today.getMonth();this.currentYear=this.today.getFullYear();
+            this.selectedDate=null;this.selectedHour=10;this.selectedMinute=0;this.init();
         }
-        get monthNames() {
-            return currentLang === 'zh' ? ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'] : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        get monthNames(){return currentLang==='zh'?['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];}
+        get weekDays(){return currentLang==='zh'?['日','一','二','三','四','五','六']:['Su','Mo','Tu','We','Th','Fr','Sa'];}
+        init(){
+            this.input.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.calendar-dropdown.open').forEach(d=>{if(d!==this.dropdown)d.classList.remove('open');});this.dropdown.classList.toggle('open');if(this.dropdown.classList.contains('open'))this.render();});
+            document.addEventListener('click',e=>{if(!this.dropdown.contains(e.target)&&e.target!==this.input)this.dropdown.classList.remove('open');});
+            this.dropdown.addEventListener('click',e=>e.stopPropagation());
         }
-        get weekDays() { return currentLang === 'zh' ? ['日','一','二','三','四','五','六'] : ['Su','Mo','Tu','We','Th','Fr','Sa']; }
-        init() {
-            this.input.addEventListener('click', e => {
-                e.stopPropagation();
-                document.querySelectorAll('.calendar-dropdown.open').forEach(d => { if (d !== this.dropdown) d.classList.remove('open'); });
-                this.dropdown.classList.toggle('open');
-                if (this.dropdown.classList.contains('open')) this.render();
-            });
-            document.addEventListener('click', e => { if (!this.dropdown.contains(e.target) && e.target !== this.input) this.dropdown.classList.remove('open'); });
-            this.dropdown.addEventListener('click', e => e.stopPropagation());
-        }
-        render() {
-            const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
-            const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-            const daysInPrev = new Date(this.currentYear, this.currentMonth, 0).getDate();
-            let html = `<div class="cal-nav"><button onclick="this.closest('.calendar-dropdown')._picker.prevMonth()">‹</button><span class="cal-month-year">${currentLang==='zh' ? this.currentYear+'年 ' : ''}${this.monthNames[this.currentMonth]}${currentLang==='en' ? ' '+this.currentYear : ''}</span><button onclick="this.closest('.calendar-dropdown')._picker.nextMonth()">›</button></div>`;
-            html += `<div class="cal-weekdays">${this.weekDays.map(d=>`<span>${d}</span>`).join('')}</div><div class="cal-days">`;
-            for (let i = firstDay-1; i >= 0; i--) html += `<button class="cal-day other-month disabled">${daysInPrev-i}</button>`;
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(this.currentYear, this.currentMonth, day);
-                const isToday = this.isSameDay(date, this.today), isSelected = this.selectedDate && this.isSameDay(date, this.selectedDate);
-                const isPast = date < new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate());
-                let cls = 'cal-day'; if(isToday) cls+=' today'; if(isSelected) cls+=' selected'; if(isPast) cls+=' disabled';
-                html += isPast ? `<button class="${cls}">${day}</button>` : `<button class="${cls}" onclick="this.closest('.calendar-dropdown')._picker.selectDay(${day})">${day}</button>`;
+        render(){
+            const firstDay=new Date(this.currentYear,this.currentMonth,1).getDay();
+            const daysInMonth=new Date(this.currentYear,this.currentMonth+1,0).getDate();
+            const daysInPrev=new Date(this.currentYear,this.currentMonth,0).getDate();
+            let html=`<div class="cal-nav"><button onclick="this.closest('.calendar-dropdown')._picker.prevMonth()">‹</button><span class="cal-month-year">${currentLang==='zh'?this.currentYear+'年 ':''}${this.monthNames[this.currentMonth]}${currentLang==='en'?' '+this.currentYear:''}</span><button onclick="this.closest('.calendar-dropdown')._picker.nextMonth()">›</button></div>`;
+            html+=`<div class="cal-weekdays">${this.weekDays.map(d=>`<span>${d}</span>`).join('')}</div><div class="cal-days">`;
+            for(let i=firstDay-1;i>=0;i--)html+=`<button class="cal-day other-month disabled">${daysInPrev-i}</button>`;
+            for(let day=1;day<=daysInMonth;day++){
+                const date=new Date(this.currentYear,this.currentMonth,day);
+                const isToday=this.isSameDay(date,this.today),isSelected=this.selectedDate&&this.isSameDay(date,this.selectedDate);
+                const isPast=date<new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate());
+                let cls='cal-day';if(isToday)cls+=' today';if(isSelected)cls+=' selected';if(isPast)cls+=' disabled';
+                html+=isPast?`<button class="${cls}">${day}</button>`:`<button class="${cls}" onclick="this.closest('.calendar-dropdown')._picker.selectDay(${day})">${day}</button>`;
             }
-            const rem = (firstDay+daysInMonth)%7===0 ? 0 : 7-(firstDay+daysInMonth)%7;
-            for (let i=1;i<=rem;i++) html+=`<button class="cal-day other-month disabled">${i}</button>`;
-            html += '</div>';
-            if (this.showTime) {
-                let hOpts='',mOpts='';
-                for(let h=8;h<=21;h++) hOpts+=`<option value="${h}" ${h===this.selectedHour?'selected':''}>${String(h).padStart(2,'0')}</option>`;
-                for(let m=0;m<60;m+=15) mOpts+=`<option value="${m}" ${m===this.selectedMinute?'selected':''}>${String(m).padStart(2,'0')}</option>`;
-                html+=`<div class="time-picker-row"><label>${currentLang==='zh'?'时间':'Time'}</label><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedHour=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${hOpts}</select><span class="time-colon">:</span><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedMinute=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${mOpts}</select></div>`;
+            const rem=(firstDay+daysInMonth)%7===0?0:7-(firstDay+daysInMonth)%7;
+            for(let i=1;i<=rem;i++)html+=`<button class="cal-day other-month disabled">${i}</button>`;
+            html+='</div>';
+            if(this.showTime){
+                let hO='',mO='';
+                for(let h=8;h<=21;h++)hO+=`<option value="${h}" ${h===this.selectedHour?'selected':''}>${String(h).padStart(2,'0')}</option>`;
+                for(let m=0;m<60;m+=15)mO+=`<option value="${m}" ${m===this.selectedMinute?'selected':''}>${String(m).padStart(2,'0')}</option>`;
+                html+=`<div class="time-picker-row"><label>${currentLang==='zh'?'时间':'Time'}</label><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedHour=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${hO}</select><span class="time-colon">:</span><select class="time-select" onchange="this.closest('.calendar-dropdown')._picker.selectedMinute=parseInt(this.value);this.closest('.calendar-dropdown')._picker.updateInput()">${mO}</select></div>`;
             }
             html+=`<button class="cal-confirm" onclick="this.closest('.calendar-dropdown')._picker.confirm()">${currentLang==='zh'?'确认选择':'Confirm'}</button>`;
-            this.dropdown.innerHTML = html; this.dropdown._picker = this;
+            this.dropdown.innerHTML=html;this.dropdown._picker=this;
         }
-        selectDay(day) { this.selectedDate = new Date(this.currentYear, this.currentMonth, day); this.updateInput(); this.render(); }
-        updateInput() {
-            if(!this.selectedDate) return;
-            const y=this.selectedDate.getFullYear(), m=String(this.selectedDate.getMonth()+1).padStart(2,'0'), d=String(this.selectedDate.getDate()).padStart(2,'0');
-            this.input.value = this.showTime ? `${y}-${m}-${d}  ${String(this.selectedHour).padStart(2,'0')}:${String(this.selectedMinute).padStart(2,'0')}` : `${y}-${m}-${d}`;
+        selectDay(day){this.selectedDate=new Date(this.currentYear,this.currentMonth,day);this.updateInput();this.render();}
+        updateInput(){
+            if(!this.selectedDate)return;
+            const y=this.selectedDate.getFullYear(),m=String(this.selectedDate.getMonth()+1).padStart(2,'0'),d=String(this.selectedDate.getDate()).padStart(2,'0');
+            this.input.value=this.showTime?`${y}-${m}-${d}  ${String(this.selectedHour).padStart(2,'0')}:${String(this.selectedMinute).padStart(2,'0')}`:`${y}-${m}-${d}`;
         }
-        confirm() { if(!this.selectedDate) this.selectedDate=new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate()); this.updateInput(); this.dropdown.classList.remove('open'); }
-        prevMonth() { if(--this.currentMonth<0){this.currentMonth=11;this.currentYear--;} this.render(); }
-        nextMonth() { if(++this.currentMonth>11){this.currentMonth=0;this.currentYear++;} this.render(); }
-        isSameDay(a,b) { return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
+        confirm(){if(!this.selectedDate)this.selectedDate=new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getDate());this.updateInput();this.dropdown.classList.remove('open');}
+        prevMonth(){if(--this.currentMonth<0){this.currentMonth=11;this.currentYear--;}this.render();}
+        nextMonth(){if(++this.currentMonth>11){this.currentMonth=0;this.currentYear++;}this.render();}
+        isSameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
     }
 
-    let ivCalendar, ofCalendar;
-    document.addEventListener('DOMContentLoaded', () => {
-        ivCalendar = new CalendarPicker(document.getElementById('iv_datetime'), document.getElementById('iv_calendar'), {showTime:true});
-        ofCalendar = new CalendarPicker(document.getElementById('of_date'), document.getElementById('of_calendar'), {showTime:false});
+    let ivCalendar,ofCalendar;
+    document.addEventListener('DOMContentLoaded',()=>{
+        ivCalendar=new CalendarPicker(document.getElementById('iv_datetime'),document.getElementById('iv_calendar'),{showTime:true});
+        ofCalendar=new CalendarPicker(document.getElementById('of_date'),document.getElementById('of_calendar'),{showTime:false});
         switchLang('zh');
     });
 
-    function openModal(t) { document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.add('active'); document.body.style.overflow='hidden'; }
-    function closeModal(t) { document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.remove('active'); document.body.style.overflow='auto'; }
-    window.onclick = e => { if(e.target.classList.contains('modal')){e.target.classList.remove('active');document.body.style.overflow='auto';} };
+    function openModal(t){document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.add('active');document.body.style.overflow='hidden';}
+    function closeModal(t){document.getElementById(t==='interview'?'interviewModal':'offerModal').classList.remove('active');document.body.style.overflow='auto';}
+    window.onclick=e=>{if(e.target.classList.contains('modal')){e.target.classList.remove('active');document.body.style.overflow='auto';}};
 
-    const TARGET_EMAIL = '739347960@qq.com';
-    function validate(fields) {
-        for(const f of fields) { const el=document.getElementById(f.id); if(!el.value.trim()){ el.style.borderColor='#ff3333'; el.focus(); el.addEventListener('input',()=>{el.style.borderColor='#333';},{once:true}); alert(currentLang==='zh'?'请填写：'+f.zh:'Please fill in: '+f.en); return false; } }
-        return true;
-    }
-    const v = id => document.getElementById(id).value.trim();
+    const TARGET_EMAIL='739347960@qq.com';
+    function validate(fields){for(const f of fields){const el=document.getElementById(f.id);if(!el.value.trim()){el.style.borderColor='#ff3333';el.focus();el.addEventListener('input',()=>{el.style.borderColor='#333';},{once:true});alert(currentLang==='zh'?'请填写：'+f.zh:'Please fill in: '+f.en);return false;}}return true;}
+    const v=id=>document.getElementById(id).value.trim();
 
-    function submitInterview() {
-        if(!validate([{id:'iv_company',zh:'公司名称',en:'Company'},{id:'iv_name',zh:'姓名',en:'Name'},{id:'iv_contact',zh:'联系方式',en:'Contact'},{id:'iv_position',zh:'职位',en:'Position'},{id:'iv_datetime',zh:'面试时间',en:'Time'}])) return;
+    function submitInterview(){
+        if(!validate([{id:'iv_company',zh:'公司名称',en:'Company'},{id:'iv_name',zh:'姓名',en:'Name'},{id:'iv_contact',zh:'联系方式',en:'Contact'},{id:'iv_position',zh:'职位',en:'Position'},{id:'iv_datetime',zh:'面试时间',en:'Time'}]))return;
         const company=v('iv_company'),name=v('iv_name'),contact=v('iv_contact'),pos=v('iv_position'),dt=v('iv_datetime'),addr=v('iv_address'),note=v('iv_note');
         let subj,body;
-        if(currentLang==='zh') { subj=`【面试邀约】${company} - ${pos}`; body=[`杜炜Neo 您好！`,``,`诚邀您参加面试：`,``,`公司：${company}`,`联系人：${name}`,`联系方式：${contact}`,`职位：${pos}`,`时间：${dt}`,addr?`地址：${addr}`:'',note?`备注：${note}`:'',``,`期待您的回复！`].filter(Boolean).join('\n'); }
-        else { subj=`[Interview] ${company} - ${pos}`; body=[`Dear Neo,`,``,`We'd like to invite you for an interview:`,``,`Company: ${company}`,`Contact: ${name}`,`Phone/WeChat: ${contact}`,`Position: ${pos}`,`Time: ${dt}`,addr?`Location: ${addr}`:'',note?`Notes: ${note}`:'',``,`Looking forward to your reply!`].filter(Boolean).join('\n'); }
+        if(currentLang==='zh'){subj=`【面试邀约】${company} - ${pos}`;body=[`杜炜Neo 您好！`,``,`诚邀您参加面试：`,``,`公司：${company}`,`联系人：${name}`,`联系方式：${contact}`,`职位：${pos}`,`时间：${dt}`,addr?`地址：${addr}`:'',note?`备注：${note}`:'',``,`期待您的回复！`].filter(Boolean).join('\n');}
+        else{subj=`[Interview] ${company} - ${pos}`;body=[`Dear Neo,`,``,`We'd like to invite you for an interview:`,``,`Company: ${company}`,`Contact: ${name}`,`Phone/WeChat: ${contact}`,`Position: ${pos}`,`Time: ${dt}`,addr?`Location: ${addr}`:'',note?`Notes: ${note}`:'',``,`Looking forward to your reply!`].filter(Boolean).join('\n');}
         window.location.href=`mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
     }
 
-    function submitOffer() {
-        if(!validate([{id:'of_company',zh:'公司名称',en:'Company'},{id:'of_name',zh:'HR姓名',en:'HR Name'},{id:'of_contact',zh:'联系方式',en:'Contact'},{id:'of_position',zh:'岗位',en:'Position'},{id:'of_date',zh:'入职时间',en:'Start Date'}])) return;
+    function submitOffer(){
+        if(!validate([{id:'of_company',zh:'公司名称',en:'Company'},{id:'of_name',zh:'HR姓名',en:'HR Name'},{id:'of_contact',zh:'联系方式',en:'Contact'},{id:'of_position',zh:'岗位',en:'Position'},{id:'of_date',zh:'入职时间',en:'Start Date'}]))return;
         const company=v('of_company'),name=v('of_name'),contact=v('of_contact'),pos=v('of_position'),date=v('of_date'),salary=v('of_salary'),loc=v('of_location'),note=v('of_note');
         let subj,body;
-        if(currentLang==='zh') { subj=`【入职通知】${company} - ${pos}`; body=[`杜炜Neo 您好！`,``,`恭喜您通过面试：`,``,`公司：${company}`,`HR：${name}`,`联系方式：${contact}`,`岗位：${pos}`,`入职时间：${date}`,salary?`薪资：${salary}`:'',loc?`地点：${loc}`:'',note?`说明：${note}`:'',``,`期待您的加入！`].filter(Boolean).join('\n'); }
-        else { subj=`[Offer] ${company} - ${pos}`; body=[`Dear Neo,`,``,`We're pleased to extend the following offer:`,``,`Company: ${company}`,`HR: ${name}`,`Contact: ${contact}`,`Position: ${pos}`,`Start: ${date}`,salary?`Compensation: ${salary}`:'',loc?`Location: ${loc}`:'',note?`Details: ${note}`:'',``,`Welcome to the team!`].filter(Boolean).join('\n'); }
+        if(currentLang==='zh'){subj=`【入职通知】${company} - ${pos}`;body=[`杜炜Neo 您好！`,``,`恭喜您通过面试：`,``,`公司：${company}`,`HR：${name}`,`联系方式：${contact}`,`岗位：${pos}`,`入职时间：${date}`,salary?`薪资：${salary}`:'',loc?`地点：${loc}`:'',note?`说明：${note}`:'',``,`期待您的加入！`].filter(Boolean).join('\n');}
+        else{subj=`[Offer] ${company} - ${pos}`;body=[`Dear Neo,`,``,`We're pleased to extend the following offer:`,``,`Company: ${company}`,`HR: ${name}`,`Contact: ${contact}`,`Position: ${pos}`,`Start: ${date}`,salary?`Compensation: ${salary}`:'',loc?`Location: ${loc}`:'',note?`Details: ${note}`:'',``,`Welcome to the team!`].filter(Boolean).join('\n');}
         window.location.href=`mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
     }
     </script>
